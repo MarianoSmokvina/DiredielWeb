@@ -1,0 +1,1864 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dirediel — Distribuidora de Autopartes</title>
+  <meta name="description" content="Dirediel — Más de 50 años distribuyendo autopartes en Argentina. Sede en Arrecifes y Rosario." />
+
+  <!-- FONTS: Replace or adjust if desired -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       CSS CUSTOM PROPERTIES — DESIGN TOKENS
+       Adjust colors, fonts, and spacing here to theme the site.
+    ============================================================ */
+    :root {
+      /* Palette */
+      --bg-deep:       #111213;
+      --bg-mid:        #191b1d;
+      --bg-card:       #1f2224;
+      --bg-card-hover: #252a2d;
+      --border:        #2e3235;
+      --border-light:  #3a3f43;
+
+      /* Text */
+      --text-primary:  #f0f2f4;
+      --text-secondary:#9aa3ac;
+      --text-muted:    #5c6570;
+
+      /* Accent — silver gradient */
+      --silver-start:  #c8cdd3;
+      --silver-end:    #8a9099;
+      --silver-grad:   linear-gradient(135deg, #c8cdd3 0%, #8a9099 60%, #c8cdd3 100%);
+
+      /* Buttons */
+      --btn-red:       #c0392b;
+      --btn-red-hover: #e74c3c;
+      --btn-blue:      #1a6fa8;
+      --btn-blue-hover:#2196f3;
+
+      /* Typography */
+      --font-display:  'Bebas Neue', sans-serif;
+      --font-body:     'DM Sans', sans-serif;
+
+      /* Spacing */
+      --section-pad:   7rem 2rem;
+      --card-radius:   6px;
+      --nav-h:         72px;
+    }
+
+    /* ============================================================
+       RESET & BASE
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+
+    /* ============================================================
+       UTILITY CLASSES
+    ============================================================ */
+    .container {
+      width: 100%;
+      max-width: 1180px;
+      margin-inline: auto;
+      padding-inline: 1.5rem;
+    }
+
+    .section { padding: var(--section-pad); }
+
+    .section-label {
+      font-family: var(--font-body);
+      font-size: .72rem;
+      font-weight: 500;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: .75rem;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      line-height: 1.05;
+      letter-spacing: .03em;
+      background: var(--silver-grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-body {
+      color: var(--text-secondary);
+      max-width: 640px;
+      font-size: 1.05rem;
+    }
+
+    /* Divider */
+    .divider {
+      width: 48px;
+      height: 3px;
+      background: var(--silver-grad);
+      border-radius: 2px;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .75rem 1.75rem;
+      border-radius: var(--card-radius);
+      font-family: var(--font-body);
+      font-size: .92rem;
+      font-weight: 500;
+      letter-spacing: .04em;
+      cursor: pointer;
+      transition: background .22s, transform .18s, box-shadow .22s;
+      border: none;
+    }
+
+    .btn-red {
+      background: var(--btn-red);
+      color: #fff;
+    }
+    .btn-red:hover {
+      background: var(--btn-red-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(192,57,43,.38);
+    }
+
+    .btn-blue {
+      background: var(--btn-blue);
+      color: #fff;
+    }
+    .btn-blue:hover {
+      background: var(--btn-blue-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(33,150,243,.32);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid var(--border-light);
+    }
+    .btn-ghost:hover {
+      border-color: var(--silver-end);
+      color: var(--text-primary);
+      transform: translateY(-2px);
+    }
+
+    /* Image placeholder */
+    .img-placeholder {
+      background: var(--bg-card);
+      border: 2px dashed var(--border-light);
+      border-radius: var(--card-radius);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: .6rem;
+      color: var(--text-muted);
+      font-size: .82rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      text-align: center;
+    }
+    .img-placeholder svg { opacity: .45; }
+
+    /* Card */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      padding: 2rem;
+      transition: background .22s, border-color .22s, transform .22s;
+    }
+    .card:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--border-light);
+      transform: translateY(-4px);
+    }
+
+    /* Grid helpers */
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+
+    /* ============================================================
+       PAGE SECTIONS — visibility toggle
+    ============================================================ */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* ============================================================
+       NAVBAR
+    ============================================================ */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      background: rgba(17,18,19,.9);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 1180px;
+      margin-inline: auto;
+      padding-inline: 1.5rem;
+    }
+
+    /* Logo */
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      letter-spacing: .12em;
+      background: var(--silver-grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      cursor: pointer;
+    }
+
+    /* Desktop links */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+    }
+
+    .nav-link {
+      font-size: .88rem;
+      font-weight: 500;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      cursor: pointer;
+      position: relative;
+      padding-bottom: 4px;
+      transition: color .2s;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background: var(--silver-grad);
+      border-radius: 1px;
+      transition: width .28s;
+    }
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--text-primary);
+    }
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      width: 100%;
+    }
+
+    /* Hamburger — mobile */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: .4rem;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 26px;
+      height: 2px;
+      background: var(--text-secondary);
+      border-radius: 2px;
+      transition: background .2s;
+    }
+    .nav-hamburger:hover span { background: var(--text-primary); }
+
+    /* Mobile menu */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: var(--nav-h); left: 0; right: 0;
+      background: var(--bg-mid);
+      border-bottom: 1px solid var(--border);
+      z-index: 999;
+      padding: 1.5rem;
+      flex-direction: column;
+      gap: .5rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu .nav-link {
+      font-size: 1rem;
+      padding: .75rem .5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .mobile-menu .nav-link:last-child { border-bottom: none; }
+
+    /* Checkbox hack for mobile menu — no JS */
+    #menu-toggle { display: none; }
+    #menu-toggle:checked ~ .mobile-menu { display: flex; }
+    #menu-toggle:checked ~ nav .nav-hamburger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    #menu-toggle:checked ~ nav .nav-hamburger span:nth-child(2) { opacity: 0; }
+    #menu-toggle:checked ~ nav .nav-hamburger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Page offset for fixed nav */
+    .page-wrap { padding-top: var(--nav-h); }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    .hero {
+      position: relative;
+      min-height: calc(100vh - var(--nav-h));
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      padding: 5rem 2rem 4rem;
+    }
+
+    /* Decorative background grid */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -160px; right: -160px;
+      width: 520px; height: 520px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(26,111,168,.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      width: 100%;
+      max-width: 1180px;
+      margin-inline: auto;
+    }
+
+    .hero-eyebrow {
+      font-size: .75rem;
+      font-weight: 500;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 8vw, 6.5rem);
+      line-height: 1;
+      letter-spacing: .04em;
+      background: var(--silver-grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-tagline {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      margin-bottom: 2.5rem;
+      max-width: 480px;
+      line-height: 1.65;
+    }
+
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    /* Hero image */
+    .hero-image {
+      width: 100%;
+      aspect-ratio: 4/3;
+    }
+    /* REPLACE: swap .img-placeholder with an <img> tag pointing to your banner */
+
+    /* Stats strip */
+    .stats-strip {
+      background: var(--bg-mid);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 2.5rem 2rem;
+    }
+    .stats-inner {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 2rem;
+      max-width: 1180px;
+      margin-inline: auto;
+      text-align: center;
+    }
+    .stat-item {}
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      letter-spacing: .06em;
+      background: var(--silver-grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: .8rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: .4rem;
+    }
+
+    /* ============================================================
+       INTRO SECTION (Home)
+    ============================================================ */
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .intro-image {
+      width: 100%;
+      aspect-ratio: 1.1;
+    }
+
+    /* ============================================================
+       STRENGTHS (Home)
+    ============================================================ */
+    .strengths { background: var(--bg-mid); }
+
+    .strength-icon {
+      width: 44px; height: 44px;
+      background: var(--silver-grad);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+      flex-shrink: 0;
+    }
+    .strength-icon svg { width: 22px; height: 22px; stroke: var(--bg-deep); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    .card h3 {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      letter-spacing: .04em;
+      color: var(--text-primary);
+      margin-bottom: .6rem;
+    }
+    .card p { color: var(--text-secondary); font-size: .95rem; }
+
+    /* ============================================================
+       REVIEWS (Home)
+    ============================================================ */
+    .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+
+    .review-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      padding: 1.75rem;
+      position: relative;
+      transition: border-color .22s, transform .22s;
+    }
+    .review-card:hover {
+      border-color: var(--border-light);
+      transform: translateY(-3px);
+    }
+
+    .review-stars { color: #c8a84b; font-size: 1rem; margin-bottom: .75rem; letter-spacing: .1em; }
+
+    .review-text { color: var(--text-secondary); font-size: .93rem; font-style: italic; margin-bottom: 1.25rem; }
+
+    .review-author { font-size: .82rem; color: var(--text-muted); letter-spacing: .06em; text-transform: uppercase; }
+
+    .review-placeholder-box {
+      background: var(--bg-card);
+      border: 2px dashed var(--border-light);
+      border-radius: var(--card-radius);
+      padding: 1.75rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: .8rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    /* ============================================================
+       ABOUT PAGE
+    ============================================================ */
+    .about-hero {
+      background: var(--bg-mid);
+      padding: 5rem 2rem 4rem;
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .timeline { margin-top: 2rem; }
+    .timeline-item {
+      display: flex;
+      gap: 1.5rem;
+      padding-bottom: 2.5rem;
+      position: relative;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      top: 24px; left: 11px;
+      width: 2px;
+      height: calc(100% - 12px);
+      background: var(--border);
+    }
+    .timeline-item:last-child::before { display: none; }
+
+    .timeline-dot {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: var(--silver-grad);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .timeline-content h4 {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      letter-spacing: .04em;
+      color: var(--text-primary);
+      margin-bottom: .35rem;
+    }
+    .timeline-content p { color: var(--text-secondary); font-size: .93rem; }
+
+    /* Locations */
+    .locations-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3rem; }
+
+    .location-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      overflow: hidden;
+      transition: border-color .22s, transform .22s;
+    }
+    .location-card:hover {
+      border-color: var(--border-light);
+      transform: translateY(-4px);
+    }
+    .location-map { width: 100%; height: 180px; }
+    .location-info { padding: 1.5rem; }
+    .location-info h3 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      letter-spacing: .04em;
+      background: var(--silver-grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: .5rem;
+    }
+    .location-badge {
+      display: inline-block;
+      font-size: .68rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--bg-deep);
+      background: var(--silver-grad);
+      border-radius: 3px;
+      padding: .2rem .6rem;
+      margin-bottom: .75rem;
+    }
+    .location-info p { color: var(--text-secondary); font-size: .9rem; }
+
+    /* ============================================================
+       PRODUCTS PAGE
+    ============================================================ */
+    .products-hero {
+      background: var(--bg-mid);
+      padding: 5rem 2rem 4rem;
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+    }
+
+    /* Category tabs — CSS only using hidden radio inputs */
+    .cat-tabs { display: flex; flex-wrap: wrap; gap: .75rem; margin-bottom: 3rem; }
+    .cat-tab {
+      padding: .55rem 1.4rem;
+      border-radius: 100px;
+      font-size: .82rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      border: 1px solid var(--border-light);
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all .2s;
+      background: transparent;
+    }
+    .cat-tab:hover {
+      border-color: var(--silver-end);
+      color: var(--text-primary);
+    }
+    .cat-tab.active-tab {
+      background: var(--silver-grad);
+      border-color: transparent;
+      color: var(--bg-deep);
+      font-weight: 600;
+    }
+
+    .product-section { margin-bottom: 4rem; }
+    .product-section-title {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      letter-spacing: .04em;
+      color: var(--text-primary);
+      margin-bottom: 1.5rem;
+      padding-bottom: .75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .product-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      overflow: hidden;
+      transition: border-color .22s, transform .22s;
+    }
+    .product-card:hover {
+      border-color: var(--border-light);
+      transform: translateY(-4px);
+    }
+    .product-thumb { width: 100%; height: 150px; }
+    .product-body { padding: 1.25rem; }
+    .product-body h4 {
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: .4rem;
+    }
+    .product-body p { color: var(--text-secondary); font-size: .88rem; }
+
+    /* ============================================================
+       BRANDS PAGE
+    ============================================================ */
+    .brands-hero {
+      background: var(--bg-mid);
+      padding: 5rem 2rem 4rem;
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .brands-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .brand-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      aspect-ratio: 3/2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      color: var(--text-muted);
+      font-size: .72rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all .22s;
+    }
+    .brand-card:hover {
+      border-color: var(--silver-end);
+      background: var(--bg-card-hover);
+      transform: translateY(-3px);
+    }
+    .brand-card svg { width: 32px; height: 32px; opacity: .35; }
+    /* REPLACE: each .brand-card should contain an <img> with the brand logo */
+
+    /* ============================================================
+       CONTACT PAGE
+    ============================================================ */
+    .contact-hero {
+      background: var(--bg-mid);
+      padding: 5rem 2rem 4rem;
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .form-group { margin-bottom: 1.4rem; }
+    .form-label {
+      display: block;
+      font-size: .8rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: .5rem;
+    }
+    .form-control {
+      width: 100%;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: .96rem;
+      padding: .85rem 1.1rem;
+      outline: none;
+      transition: border-color .2s;
+      appearance: none;
+    }
+    .form-control::placeholder { color: var(--text-muted); }
+    .form-control:focus { border-color: var(--silver-end); }
+    textarea.form-control { resize: vertical; min-height: 130px; }
+
+    .contact-info { display: flex; flex-direction: column; gap: 1.75rem; }
+
+    .contact-block h4 {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      letter-spacing: .04em;
+      color: var(--text-primary);
+      margin-bottom: .4rem;
+    }
+    .contact-block p { color: var(--text-secondary); font-size: .93rem; }
+
+    .contact-detail {
+      display: flex;
+      gap: .85rem;
+      align-items: flex-start;
+      color: var(--text-secondary);
+      font-size: .93rem;
+    }
+    .contact-detail svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; stroke: var(--silver-end); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    footer {
+      background: var(--bg-mid);
+      border-top: 1px solid var(--border);
+      padding: 3.5rem 2rem 2rem;
+    }
+    .footer-inner {
+      max-width: 1180px;
+      margin-inline: auto;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+    .footer-brand p {
+      color: var(--text-secondary);
+      font-size: .9rem;
+      margin-top: .75rem;
+      max-width: 260px;
+      line-height: 1.6;
+    }
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      letter-spacing: .12em;
+      background: var(--silver-grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .footer-col h5 {
+      font-size: .78rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 1.1rem;
+    }
+    .footer-col li { margin-bottom: .55rem; }
+    .footer-col a {
+      color: var(--text-secondary);
+      font-size: .9rem;
+      cursor: pointer;
+      transition: color .18s;
+    }
+    .footer-col a:hover { color: var(--text-primary); }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 1.75rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-bottom p { color: var(--text-muted); font-size: .82rem; }
+
+    /* ============================================================
+       ANIMATIONS (CSS-only)
+    ============================================================ */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    .anim-1 { animation: fadeInUp .7s ease both; }
+    .anim-2 { animation: fadeInUp .7s .12s ease both; }
+    .anim-3 { animation: fadeInUp .7s .24s ease both; }
+    .anim-4 { animation: fadeInUp .7s .36s ease both; }
+    .anim-fade { animation: fadeIn .6s ease both; }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 1024px) {
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .hero-inner { gap: 2.5rem; }
+    }
+
+    @media (max-width: 768px) {
+      :root { --section-pad: 4.5rem 1.25rem; }
+
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+
+      .hero-inner       { grid-template-columns: 1fr; }
+      .hero-image       { display: none; }
+      .hero             { padding: 3.5rem 1.25rem 3rem; }
+      .hero-title       { font-size: clamp(3rem, 14vw, 5rem); }
+
+      .intro-grid       { grid-template-columns: 1fr; }
+      .intro-image      { display: none; }
+
+      .grid-2,
+      .grid-3,
+      .grid-4           { grid-template-columns: 1fr; }
+
+      .reviews-grid     { grid-template-columns: 1fr; }
+
+      .about-grid       { grid-template-columns: 1fr; }
+      .locations-grid   { grid-template-columns: 1fr; }
+
+      .contact-grid     { grid-template-columns: 1fr; }
+
+      .footer-top       { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom    { flex-direction: column; text-align: center; }
+
+      .stats-inner      { gap: 1.25rem; }
+      .stat-number      { font-size: 2.2rem; }
+
+      .brands-grid      { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 480px) {
+      .hero-actions     { flex-direction: column; }
+      .btn              { width: 100%; justify-content: center; }
+      .cat-tabs         { justify-content: center; }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ================================================================
+     MOBILE MENU TOGGLE (checkbox hack — no JS required)
+================================================================ -->
+<input type="checkbox" id="menu-toggle" />
+
+<!-- ================================================================
+     NAVBAR
+================================================================ -->
+<nav>
+  <div class="nav-inner">
+    <!-- LOGO — replace text with <img> if you have a logo file -->
+    <span class="nav-logo" onclick="showPage('home')">DIREDIEL</span>
+
+    <!-- Desktop navigation -->
+    <ul class="nav-links">
+      <li><span class="nav-link active" onclick="showPage('home',this)">Inicio</span></li>
+      <li><span class="nav-link" onclick="showPage('about',this)">Nosotros</span></li>
+      <li><span class="nav-link" onclick="showPage('products',this)">Productos</span></li>
+      <li><span class="nav-link" onclick="showPage('brands',this)">Marcas</span></li>
+      <li><span class="nav-link" onclick="showPage('contact',this)">Contacto</span></li>
+    </ul>
+
+    <!-- Mobile hamburger -->
+    <label for="menu-toggle" class="nav-hamburger" aria-label="Abrir menú">
+      <span></span><span></span><span></span>
+    </label>
+  </div>
+</nav>
+
+<!-- Mobile dropdown menu -->
+<div class="mobile-menu">
+  <span class="nav-link" onclick="showPage('home',this);document.getElementById('menu-toggle').checked=false;">Inicio</span>
+  <span class="nav-link" onclick="showPage('about',this);document.getElementById('menu-toggle').checked=false;">Nosotros</span>
+  <span class="nav-link" onclick="showPage('products',this);document.getElementById('menu-toggle').checked=false;">Productos</span>
+  <span class="nav-link" onclick="showPage('brands',this);document.getElementById('menu-toggle').checked=false;">Marcas</span>
+  <span class="nav-link" onclick="showPage('contact',this);document.getElementById('menu-toggle').checked=false;">Contacto</span>
+</div>
+
+<!-- ================================================================
+     PAGE WRAPPER
+================================================================ -->
+<div class="page-wrap">
+
+  <!-- ==============================================================
+       HOME PAGE
+  ============================================================== -->
+  <div id="page-home" class="page active">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-inner container">
+        <div>
+          <!-- REPLACE: update eyebrow text as desired -->
+          <p class="hero-eyebrow anim-1">Distribuidora de Autopartes — Desde 1974</p>
+
+          <!-- REPLACE: tagline or company slogan -->
+          <h1 class="hero-title anim-2">DIREDIEL</h1>
+          <p class="hero-tagline anim-3">
+            Más de 50 años conectando talleres y flotas con las mejores marcas de autopartes en Argentina. Confianza, experiencia y cobertura nacional.
+          </p>
+
+          <div class="hero-actions anim-4">
+            <span class="btn btn-red" onclick="showPage('products',null)">Ver Catálogo</span>
+            <span class="btn btn-ghost" onclick="showPage('contact',null)">Contactanos</span>
+          </div>
+        </div>
+
+        <!-- REPLACE: swap img-placeholder with <img src="banner.jpg" alt="..." class="hero-image" /> -->
+        <div class="hero-image img-placeholder anim-fade">
+          <!-- SVG icon -->
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+            <polyline points="21 15 16 10 5 21"/>
+          </svg>
+          <span>Imagen / Banner Principal<br/>(Reemplazar)</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS STRIP -->
+    <div class="stats-strip">
+      <div class="stats-inner">
+        <div class="stat-item">
+          <div class="stat-number">50+</div>
+          <div class="stat-label">Años de Experiencia</div>
+        </div>
+        <div class="stat-item">
+          <!-- REPLACE: update number of brands -->
+          <div class="stat-number">80+</div>
+          <div class="stat-label">Marcas Disponibles</div>
+        </div>
+        <div class="stat-item">
+          <!-- REPLACE: update number of SKUs -->
+          <div class="stat-number">5.000+</div>
+          <div class="stat-label">Referencias en Stock</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">2</div>
+          <div class="stat-label">Puntos de Distribución</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INTRO SECTION -->
+    <section class="section">
+      <div class="container">
+        <div class="intro-grid">
+
+          <!-- REPLACE: swap img-placeholder with <img src="warehouse.jpg" alt="..." class="intro-image" /> -->
+          <div class="intro-image img-placeholder">
+            <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+            <span>Imagen de Empresa<br/>(Reemplazar)</span>
+          </div>
+
+          <div>
+            <p class="section-label">Nuestra Historia</p>
+            <div class="divider"></div>
+            <h2 class="section-title">Más de Medio Siglo en el Rubro</h2>
+            <!-- REPLACE: update with real company history text -->
+            <p class="section-body">
+              Dirediel nació en Arrecifes, provincia de Buenos Aires, con una visión simple: acercar las mejores autopartes del mercado a talleres, flotas y comercios de todo el país. Con más de 50 años de trayectoria ininterrumpida, somos referentes regionales en distribución de repuestos, expandiendo nuestra presencia con una sucursal en Rosario para cubrir la región centro del país.
+            </p>
+            <br/>
+            <p class="section-body">
+              Trabajamos con las principales marcas del sector, garantizando calidad, disponibilidad y asesoramiento técnico personalizado en cada operación.
+            </p>
+            <br/>
+            <span class="btn btn-blue" style="margin-top:.5rem" onclick="showPage('about',null)">Conocé Más</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STRENGTHS -->
+    <section class="section strengths">
+      <div class="container">
+        <div style="text-align:center; max-width:600px; margin:0 auto 3.5rem;">
+          <p class="section-label">Por qué elegirnos</p>
+          <div class="divider" style="margin-inline:auto;"></div>
+          <h2 class="section-title">Nuestras Fortalezas</h2>
+        </div>
+
+        <div class="grid-3">
+
+          <div class="card">
+            <div class="strength-icon">
+              <!-- Shield icon -->
+              <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <h3>Confiabilidad</h3>
+            <!-- REPLACE: update description -->
+            <p>Décadas de relaciones comerciales sólidas con talleres, concesionarios y flotas de toda la región. Cumplimiento y seriedad en cada entrega.</p>
+          </div>
+
+          <div class="card">
+            <div class="strength-icon">
+              <!-- Clock icon -->
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <h3>50+ Años de Experiencia</h3>
+            <!-- REPLACE: update description -->
+            <p>Conocemos el mercado de autopartes como nadie. Nuestro equipo combina experiencia técnica con actualización permanente del catálogo disponible.</p>
+          </div>
+
+          <div class="card">
+            <div class="strength-icon">
+              <!-- Package icon -->
+              <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+            </div>
+            <h3>Amplio Catálogo</h3>
+            <!-- REPLACE: update description -->
+            <p>Miles de referencias disponibles en stock permanente. Motor, frenos, suspensión, eléctrico, carrocería y mucho más, en las marcas que el mercado demanda.</p>
+          </div>
+
+          <div class="card">
+            <div class="strength-icon">
+              <!-- Truck icon -->
+              <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            </div>
+            <h3>Logística Eficiente</h3>
+            <!-- REPLACE: update description -->
+            <p>Entrega rápida a toda la región desde nuestras sedes en Arrecifes y Rosario. Trabajamos con operadores logísticos para garantizar tiempos de entrega competitivos.</p>
+          </div>
+
+          <div class="card">
+            <div class="strength-icon">
+              <!-- Users icon -->
+              <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <h3>Atención Personalizada</h3>
+            <!-- REPLACE: update description -->
+            <p>Un equipo especializado te asesora en la selección del repuesto correcto. No vendemos piezas, construimos soluciones para cada cliente.</p>
+          </div>
+
+          <div class="card">
+            <div class="strength-icon">
+              <!-- Star icon -->
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <h3>Marcas Líderes</h3>
+            <!-- REPLACE: update description -->
+            <p>Trabajamos exclusivamente con marcas reconocidas y homologadas. Calidad garantizada en cada autoparte que distribuimos.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CUSTOMER REVIEWS -->
+    <section class="section">
+      <div class="container">
+        <div style="text-align:center; max-width:580px; margin:0 auto 3rem;">
+          <p class="section-label">Lo que dicen nuestros clientes</p>
+          <div class="divider" style="margin-inline:auto;"></div>
+          <h2 class="section-title">Testimonios</h2>
+          <p class="section-body" style="margin-inline:auto;">
+            La confianza de nuestros clientes es nuestro mayor activo. A continuación, algunas opiniones.
+          </p>
+        </div>
+
+        <div class="reviews-grid">
+
+          <!-- REVIEW 1 — REPLACE with real testimonial -->
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">"Excelente proveedor. Siempre tienen el repuesto que necesitamos y la atención es muy profesional. Los recomiendo sin dudas."</p>
+            <!-- REPLACE: customer name and location -->
+            <span class="review-author">— Nombre Cliente · Taller, Ciudad</span>
+          </div>
+
+          <!-- REVIEW 2 — REPLACE with real testimonial -->
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">"Trabajamos con Dirediel hace años. Stock permanente y envíos rápidos. Una relación comercial que no cambiaríamos por nada."</p>
+            <!-- REPLACE: customer name and location -->
+            <span class="review-author">— Nombre Cliente · Empresa, Ciudad</span>
+          </div>
+
+          <!-- REVIEW 3 — PLACEHOLDER for future review -->
+          <div class="review-placeholder-box">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto .75rem;opacity:.35;">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+            Espacio para próxima reseña<br/>(Agregar cuando esté disponible)
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /page-home -->
+
+
+  <!-- ==============================================================
+       ABOUT PAGE
+  ============================================================== -->
+  <div id="page-about" class="page">
+
+    <!-- Page hero -->
+    <div class="about-hero">
+      <div class="container">
+        <p class="section-label">Quiénes somos</p>
+        <div class="divider" style="margin-inline:auto;"></div>
+        <h1 class="section-title" style="margin-inline:auto;">Sobre Dirediel</h1>
+        <p class="section-body" style="margin-inline:auto; text-align:center;">
+          Más de 50 años de historia en la distribución de autopartes en Argentina, construidos sobre la base de la confianza, el trabajo y el compromiso con nuestros clientes.
+        </p>
+      </div>
+    </div>
+
+    <!-- History section -->
+    <section class="section">
+      <div class="container">
+        <div class="about-grid">
+
+          <div>
+            <p class="section-label">Nuestra Trayectoria</p>
+            <div class="divider"></div>
+            <h2 class="section-title">50 Años Construyendo Confianza</h2>
+            <!-- REPLACE: update with real history text -->
+            <p class="section-body">
+              Dirediel fue fundada en Arrecifes, Buenos Aires, con el objetivo de cubrir la creciente demanda de autopartes de calidad en la región. A lo largo de las décadas, supimos crecer de la mano de nuestros clientes, ampliando el catálogo, sumando marcas y expandiendo nuestra cobertura geográfica.
+            </p>
+
+            <!-- Timeline -->
+            <div class="timeline">
+
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                  <!-- REPLACE: update year and description -->
+                  <h4>1974 — Fundación en Arrecifes</h4>
+                  <p>Inicio de actividades como distribuidora de repuestos en la ciudad de Arrecifes, provincia de Buenos Aires.</p>
+                </div>
+              </div>
+
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                  <!-- REPLACE: update year and description -->
+                  <h4>1990s — Expansión del Catálogo</h4>
+                  <p>Incorporación de nuevas marcas y líneas de productos. Consolidación como referente regional en el rubro.</p>
+                </div>
+              </div>
+
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                  <!-- REPLACE: update year and description -->
+                  <h4>2005 — Apertura Rosario</h4>
+                  <p>Inauguración de la sucursal en Rosario para atender la demanda de la región centro del país.</p>
+                </div>
+              </div>
+
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                  <!-- REPLACE: update year and description -->
+                  <h4>Hoy — Más de 50 Años</h4>
+                  <p>Continuamos creciendo con las mismas bases: calidad, confiabilidad y atención personalizada.</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- REPLACE: swap img-placeholder with <img src="team.jpg" alt="Equipo Dirediel" /> -->
+          <div class="img-placeholder" style="min-height:400px; border-radius: var(--card-radius);">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+            <span>Foto del Equipo / Instalaciones<br/>(Reemplazar)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Locations -->
+    <section class="section" style="background: var(--bg-mid); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+      <div class="container">
+        <p class="section-label">Dónde estamos</p>
+        <div class="divider"></div>
+        <h2 class="section-title">Nuestras Ubicaciones</h2>
+        <p class="section-body">Contamos con dos puntos de distribución para atender a toda la región de manera eficiente.</p>
+
+        <div class="locations-grid">
+
+          <!-- HEADQUARTERS -->
+          <div class="location-card">
+            <!-- REPLACE: embed a real Google Maps iframe or image of the location -->
+            <div class="location-map img-placeholder">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+              </svg>
+              <span>Mapa Arrecifes<br/>(Reemplazar)</span>
+            </div>
+            <div class="location-info">
+              <span class="location-badge">Casa Central</span>
+              <h3>Arrecifes</h3>
+              <!-- REPLACE: update address, phone, hours -->
+              <div class="contact-detail" style="margin-bottom:.6rem">
+                <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <p>Calle Ejemplo 1234, Arrecifes, Buenos Aires</p>
+              </div>
+              <div class="contact-detail" style="margin-bottom:.6rem">
+                <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.56 2 2 0 0 1 3.58 1.38h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.38 16.92z"/></svg>
+                <!-- REPLACE: actual phone number -->
+                <p>+54 (XXX) XXX-XXXX</p>
+              </div>
+              <div class="contact-detail">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <!-- REPLACE: actual business hours -->
+                <p>Lun–Vie: 8:00–18:00 · Sáb: 8:00–13:00</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- BRANCH -->
+          <div class="location-card">
+            <!-- REPLACE: embed a real Google Maps iframe or image of the location -->
+            <div class="location-map img-placeholder">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+              </svg>
+              <span>Mapa Rosario<br/>(Reemplazar)</span>
+            </div>
+            <div class="location-info">
+              <span class="location-badge">Sucursal</span>
+              <h3>Rosario</h3>
+              <!-- REPLACE: update address, phone, hours -->
+              <div class="contact-detail" style="margin-bottom:.6rem">
+                <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <p>Calle Ejemplo 5678, Rosario, Santa Fe</p>
+              </div>
+              <div class="contact-detail" style="margin-bottom:.6rem">
+                <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.56 2 2 0 0 1 3.58 1.38h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.38 16.92z"/></svg>
+                <!-- REPLACE: actual phone number -->
+                <p>+54 (XXX) XXX-XXXX</p>
+              </div>
+              <div class="contact-detail">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <!-- REPLACE: actual business hours -->
+                <p>Lun–Vie: 8:00–17:30 · Sáb: 8:00–12:30</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /page-about -->
+
+
+  <!-- ==============================================================
+       PRODUCTS PAGE
+  ============================================================== -->
+  <div id="page-products" class="page">
+
+    <div class="products-hero">
+      <div class="container">
+        <p class="section-label">Catálogo</p>
+        <div class="divider" style="margin-inline:auto;"></div>
+        <h1 class="section-title" style="margin-inline:auto;">Productos y Servicios</h1>
+        <p class="section-body" style="margin-inline:auto; text-align:center;">
+          Distribuimos una amplia gama de autopartes para vehículos de pasajeros, utilitarios y transporte pesado. Stock permanente y entrega a todo el país.
+        </p>
+      </div>
+    </div>
+
+    <section class="section">
+      <div class="container">
+
+        <!-- Category filter tabs (visual only — CSS hover, no JS filter needed for static) -->
+        <div class="cat-tabs">
+          <span class="cat-tab active-tab">Todas</span>
+          <span class="cat-tab">Motor</span>
+          <span class="cat-tab">Frenos</span>
+          <span class="cat-tab">Suspensión</span>
+          <span class="cat-tab">Eléctrico</span>
+          <span class="cat-tab">Transmisión</span>
+          <span class="cat-tab">Carrocería</span>
+          <span class="cat-tab">Lubricantes</span>
+        </div>
+
+        <!-- SECTION: MOTOR -->
+        <div class="product-section">
+          <h3 class="product-section-title">Motor &amp; Distribución</h3>
+          <div class="grid-4">
+
+            <div class="product-card">
+              <!-- REPLACE: add <img src="..." /> inside product-thumb -->
+              <div class="product-thumb img-placeholder">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              </div>
+              <div class="product-body">
+                <!-- REPLACE: product name and description -->
+                <h4>Correas de Distribución</h4>
+                <p>Para vehículos nacionales e importados. Múltiples referencias disponibles.</p>
+              </div>
+            </div>
+
+            <div class="product-card">
+              <div class="product-thumb img-placeholder">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              </div>
+              <div class="product-body">
+                <h4>Juntas de Motor</h4>
+                <p>Juegos completos y juntas individuales para toda la gama del mercado.</p>
+              </div>
+            </div>
+
+            <div class="product-card">
+              <div class="product-thumb img-placeholder">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              </div>
+              <div class="product-body">
+                <h4>Filtros de Aceite y Aire</h4>
+                <p>Amplio stock de filtros de aceite, aire, combustible y habitáculo.</p>
+              </div>
+            </div>
+
+            <div class="product-card">
+              <div class="product-thumb img-placeholder">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              </div>
+              <div class="product-body">
+                <h4>Bujías</h4>
+                <p>Bujías estándar, iridium y platino para motores a nafta y GNC.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- SECTION: FRENOS -->
+        <div class="product-section">
+          <h3 class="product-section-title">Sistema de Frenos</h3>
+          <div class="grid-4">
+
+            <div class="product-card">
+              <div class="product-thumb img-placeholder">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              </div>
+              <div class="product-body">
+                <h4>Pastillas de Freno</h4>
+                <p>Pastillas delanteras y traseras para vehículos livianos y pesados.</p>
+              </div>
+            </div>
+
+            <div class="product-card">
+              <div class="product-thumb img-placeholder">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              </div>
+              <div class="product-body">
+                <h4>Discos de Freno</h4>
+                <p>Discos sólidos y ventilados en múltiples referencias.</p>
+              </div>
+            </div>
+
+            <div class="product-card">
+              <div class="product-thumb img-placeholder">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              </div>
+              <div class="product-body">
+                <h4>Líquido de Frenos</h4>
+                <p>DOT 3, DOT 4 y DOT 5.1 de las principales marcas del mercado.</p>
+              </div>
+            </div>
+
+            <div class="product-card">
+              <div class="product-thumb img-placeholder">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              </div>
+              <div class="product-body">
+                <h4>Bombas de Freno</h4>
+                <p>Bombas principales y de rueda para amplia gama de vehículos.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- SECTION: SUSPENSIÓN -->
+        <div class="product-section">
+          <h3 class="product-section-title">Suspensión &amp; Dirección</h3>
+          <div class="grid-4">
+
+            <div class="product-card">
+              <div class="product-thumb img-placeholder">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              </div>
+              <div class="product-body">
+                <h4>Amortiguadores</h4>
+                <p>Delanteros y traseros, bitubo y monotubo, para vehículos de pasajeros y utilitarios.</p>
+              </div>
+            </div>
+
+            <div class="product-card">
+              <div class="product-thumb img-placeholder">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              </div>
+              <div class="product-body">
+                <h4>Rótulas y Terminales</h4>
+                <p>Rótulas de suspensión y terminales de dirección con alta durabilidad.</p>
+              </div>
+            </div>
+
+            <div class="product-card">
+              <div class="product-thumb img-placeholder">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              </div>
+              <div class="product-body">
+                <h4>Bujes y Silent Blocks</h4>
+                <p>Goma y poliuretano, disponibles para la mayoría de modelos del mercado.</p>
+              </div>
+            </div>
+
+            <div class="product-card">
+              <div class="product-thumb img-placeholder">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              </div>
+              <div class="product-body">
+                <h4>Muelles y Resortes</h4>
+                <p>Resortes helicoidales y balletas para vehículos de carga y transporte.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div style="text-align:center; padding: 2rem 0 1rem;">
+          <p class="section-body" style="margin:0 auto 1.5rem;">
+            ¿No encontraste lo que buscás? Consultanos — tenemos acceso a referencias especiales y podemos conseguirte lo que necesitás.
+          </p>
+          <span class="btn btn-red" onclick="showPage('contact',null)">Consultar Disponibilidad</span>
+        </div>
+
+      </div>
+    </section>
+
+  </div><!-- /page-products -->
+
+
+  <!-- ==============================================================
+       BRANDS PAGE
+  ============================================================== -->
+  <div id="page-brands" class="page">
+
+    <div class="brands-hero">
+      <div class="container">
+        <p class="section-label">Nuestras Marcas</p>
+        <div class="divider" style="margin-inline:auto;"></div>
+        <h1 class="section-title" style="margin-inline:auto;">Las Mejores Marcas del Mercado</h1>
+        <p class="section-body" style="margin-inline:auto; text-align:center;">
+          Trabajamos únicamente con marcas líderes y homologadas para garantizar calidad en cada autoparte que distribuimos.
+        </p>
+      </div>
+    </div>
+
+    <section class="section">
+      <div class="container">
+
+        <!-- BRANDS GRID -->
+        <!-- REPLACE: Each .brand-card should contain <img src="logo-brand.png" alt="Nombre Marca" style="max-width:100px; max-height:50px; object-fit:contain;" /> -->
+        <!-- Add or remove brand cards as needed -->
+
+        <div class="brands-grid">
+
+          <!-- Brand 1 -->
+          <div class="brand-card">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Logo Marca 1<br/>(Reemplazar)</span>
+          </div>
+
+          <!-- Brand 2 -->
+          <div class="brand-card">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Logo Marca 2<br/>(Reemplazar)</span>
+          </div>
+
+          <!-- Brand 3 -->
+          <div class="brand-card">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Logo Marca 3<br/>(Reemplazar)</span>
+          </div>
+
+          <!-- Brand 4 -->
+          <div class="brand-card">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Logo Marca 4<br/>(Reemplazar)</span>
+          </div>
+
+          <!-- Brand 5 -->
+          <div class="brand-card">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Logo Marca 5<br/>(Reemplazar)</span>
+          </div>
+
+          <!-- Brand 6 -->
+          <div class="brand-card">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Logo Marca 6<br/>(Reemplazar)</span>
+          </div>
+
+          <!-- Brand 7 -->
+          <div class="brand-card">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Logo Marca 7<br/>(Reemplazar)</span>
+          </div>
+
+          <!-- Brand 8 -->
+          <div class="brand-card">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Logo Marca 8<br/>(Reemplazar)</span>
+          </div>
+
+          <!-- Brand 9 -->
+          <div class="brand-card">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Logo Marca 9<br/>(Reemplazar)</span>
+          </div>
+
+          <!-- Brand 10 -->
+          <div class="brand-card">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Logo Marca 10<br/>(Reemplazar)</span>
+          </div>
+
+          <!-- Brand 11 -->
+          <div class="brand-card">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Logo Marca 11<br/>(Reemplazar)</span>
+          </div>
+
+          <!-- Brand 12 -->
+          <div class="brand-card">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Logo Marca 12<br/>(Reemplazar)</span>
+          </div>
+
+          <!-- DUPLICATE or REMOVE cards above to match actual brand count -->
+
+        </div>
+
+        <!-- CTA -->
+        <div style="text-align:center; margin-top:3.5rem; padding: 2.5rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--card-radius);">
+          <h3 style="font-family: var(--font-display); font-size:1.8rem; letter-spacing:.04em; color:var(--text-primary); margin-bottom:.75rem;">
+            ¿Buscás una marca específica?
+          </h3>
+          <p class="section-body" style="margin:0 auto 1.5rem; text-align:center;">
+            Consultanos — si no la ves en la lista, probablemente podamos conseguirla.
+          </p>
+          <span class="btn btn-red" onclick="showPage('contact',null)">Consultar</span>
+        </div>
+
+      </div>
+    </section>
+
+  </div><!-- /page-brands -->
+
+
+  <!-- ==============================================================
+       CONTACT PAGE
+  ============================================================== -->
+  <div id="page-contact" class="page">
+
+    <div class="contact-hero">
+      <div class="container">
+        <p class="section-label">Estamos para ayudarte</p>
+        <div class="divider" style="margin-inline:auto;"></div>
+        <h1 class="section-title" style="margin-inline:auto;">Contacto</h1>
+        <p class="section-body" style="margin-inline:auto; text-align:center;">
+          Consultá disponibilidad, precios o cualquier duda. Respondemos a la brevedad.
+        </p>
+      </div>
+    </div>
+
+    <section class="section">
+      <div class="container">
+        <div class="contact-grid">
+
+          <!-- CONTACT FORM -->
+          <!-- NOTE: This form does not submit by default. Connect to a backend service 
+               (e.g. Formspree, Netlify Forms) by adding action="YOUR_ENDPOINT" to the <form> tag. -->
+          <div>
+            <h2 class="section-title">Envianos un Mensaje</h2>
+
+            <form action="#" method="POST">
+
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+                <div class="form-group">
+                  <label class="form-label" for="nombre">Nombre</label>
+                  <!-- REPLACE placeholder text if desired -->
+                  <input class="form-control" type="text" id="nombre" name="nombre" placeholder="Tu nombre" required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="empresa">Empresa</label>
+                  <input class="form-control" type="text" id="empresa" name="empresa" placeholder="Nombre del taller / empresa" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="email">Email</label>
+                <input class="form-control" type="email" id="email" name="email" placeholder="tu@email.com" required />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="telefono">Teléfono</label>
+                <input class="form-control" type="tel" id="telefono" name="telefono" placeholder="+54 (XXX) XXX-XXXX" />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="sede">Sede más cercana</label>
+                <select class="form-control" id="sede" name="sede">
+                  <option value="">Seleccioná una sede</option>
+                  <option value="arrecifes">Arrecifes (Casa Central)</option>
+                  <option value="rosario">Rosario (Sucursal)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="mensaje">Mensaje</label>
+                <textarea class="form-control" id="mensaje" name="mensaje" placeholder="Contanos qué necesitás..." required></textarea>
+              </div>
+
+              <!-- REPLACE: connect form action to your backend/service -->
+              <button type="submit" class="btn btn-red" style="width:100%; justify-content:center; font-size:1rem;">
+                Enviar Consulta
+              </button>
+
+            </form>
+          </div>
+
+          <!-- CONTACT INFO SIDEBAR -->
+          <div class="contact-info">
+
+            <div>
+              <h3 style="font-family:var(--font-display); font-size:1.6rem; letter-spacing:.04em; background:var(--silver-grad); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:1.5rem;">
+                Información de Contacto
+              </h3>
+            </div>
+
+            <!-- Arrecifes -->
+            <div class="contact-block">
+              <h4>🏢 Casa Central — Arrecifes</h4>
+              <div class="contact-detail" style="margin-bottom:.5rem">
+                <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <!-- REPLACE: real address -->
+                <p>Calle Ejemplo 1234, Arrecifes, Buenos Aires</p>
+              </div>
+              <div class="contact-detail" style="margin-bottom:.5rem">
+                <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.56 2 2 0 0 1 3.58 1.38h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.38 16.92z"/></svg>
+                <!-- REPLACE: real phone -->
+                <p>+54 (XXX) XXX-XXXX</p>
+              </div>
+              <div class="contact-detail">
+                <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                <!-- REPLACE: real email -->
+                <p>contacto@dirediel.com.ar</p>
+              </div>
+            </div>
+
+            <div style="height:1px; background: var(--border);"></div>
+
+            <!-- Rosario -->
+            <div class="contact-block">
+              <h4>🏢 Sucursal — Rosario</h4>
+              <div class="contact-detail" style="margin-bottom:.5rem">
+                <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <!-- REPLACE: real address -->
+                <p>Calle Ejemplo 5678, Rosario, Santa Fe</p>
+              </div>
+              <div class="contact-detail" style="margin-bottom:.5rem">
+                <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.56 2 2 0 0 1 3.58 1.38h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.38 16.92z"/></svg>
+                <!-- REPLACE: real phone -->
+                <p>+54 (XXX) XXX-XXXX</p>
+              </div>
+              <div class="contact-detail">
+                <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                <!-- REPLACE: real email -->
+                <p>rosario@dirediel.com.ar</p>
+              </div>
+            </div>
+
+            <div style="height:1px; background: var(--border);"></div>
+
+            <!-- Hours -->
+            <div class="contact-block">
+              <h4>🕐 Horarios de Atención</h4>
+              <p style="color:var(--text-secondary); font-size:.93rem; line-height:1.9;">
+                <!-- REPLACE: real business hours -->
+                Lunes a Viernes: 8:00 – 18:00<br/>
+                Sábados: 8:00 – 13:00<br/>
+                Domingos y Feriados: Cerrado
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /page-contact -->
+
+
+  <!-- ==============================================================
+       FOOTER
+  ============================================================== -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+
+        <div class="footer-brand">
+          <!-- REPLACE: logo image if available -->
+          <div class="footer-logo">DIREDIEL</div>
+          <p>Más de 50 años distribuyendo autopartes de calidad en Argentina. Confianza, experiencia y cobertura nacional.</p>
+        </div>
+
+        <div class="footer-col">
+          <h5>Navegación</h5>
+          <ul>
+            <li><a onclick="showPage('home',null)">Inicio</a></li>
+            <li><a onclick="showPage('about',null)">Nosotros</a></li>
+            <li><a onclick="showPage('products',null)">Productos</a></li>
+            <li><a onclick="showPage('brands',null)">Marcas</a></li>
+            <li><a onclick="showPage('contact',null)">Contacto</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Sedes</h5>
+          <ul>
+            <li><a>Arrecifes (Casa Central)</a></li>
+            <li><a>Rosario (Sucursal)</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Contacto</h5>
+          <ul>
+            <!-- REPLACE: real contact details -->
+            <li><a>contacto@dirediel.com.ar</a></li>
+            <li><a>+54 (XXX) XXX-XXXX</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <!-- REPLACE: update copyright year and legal info if needed -->
+        <p>© 2025 Dirediel. Todos los derechos reservados.</p>
+        <p>Arrecifes &amp; Rosario, Argentina</p>
+      </div>
+    </div>
+  </footer>
+
+</div><!-- /page-wrap -->
+
+<!-- ================================================================
+     NAVIGATION JAVASCRIPT
+     (Minimal inline script — only used for page switching)
+================================================================ -->
+<script>
+  function showPage(id, navEl) {
+    // Hide all pages
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    // Show selected page
+    document.getElementById('page-' + id).classList.add('active');
+    // Update active nav link
+    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+    if (navEl) navEl.classList.add('active');
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>
